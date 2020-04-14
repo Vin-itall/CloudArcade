@@ -1,9 +1,19 @@
 """
 Pygame output for libretro Video.
 """
+import random
+import string
 import pygame
 import ctypes
-
+from io import StringIO
+from io import BytesIO
+from PIL import Image
+count = 0
+Queue = []
+def randomString(stringLength=10):
+    """Generate a random string of fixed length """
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(stringLength))
 
 def set_video_refresh_cb(core, callback):
     """
@@ -35,7 +45,6 @@ def set_video_refresh_cb(core, callback):
         convsurf = pygame.Surface((pitch // bytes_per_pixel, height), depth=bpp, masks=bitmasks)
         surf = convsurf.subsurface((0, 0, width, height))
         ctypes.memmove(convsurf._pixels_address, data, pitch*height)
-
         callback(surf)
 
     core.set_video_refresh_cb(wrapper)
@@ -44,7 +53,12 @@ def set_video_refresh_cb(core, callback):
 def set_video_refresh_surface(core, targetsurf, scale=False):
     if not scale:
         def wrapper(surf):
+            global count
+            count+=1
+            fname = 'bmps/'+str(count)+'.bmp'
+            pygame.image.save(surf, fname)
             targetsurf.blit(surf, (0, 0))
+
     else:
         def wrapper(surf):
             pygame.transform.scale(surf, targetsurf.get_size(), targetsurf)

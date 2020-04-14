@@ -604,8 +604,6 @@ class EmulatedSystem:
                            ctypes.sizeof(retro_game_geometry))
             self.av_info_changed = True
             return True
-
-        print(f'retro_environment not implemented: {retro_global_lookup["ENVIRONMENT"].get(cmd, cmd)}')
         return False
 
     def set_null_callbacks(self):

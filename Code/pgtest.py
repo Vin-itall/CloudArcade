@@ -1,10 +1,12 @@
-#!/usr/bin/python2
+
 import pygame
 import py_retro
-import sys
+# import os
+# os.environ["SDL_VIDEODRIVER"] = "dummy"
 
-libpath = '/home/demonz/Desktop/python-retro/cores/snes9x_libretro.so'
-rompath = '/home/demonz/Desktop/python-retro/roms/snes/sr.smc'
+libpath = '/home/atmc/Desktop/CloudArcade-master/cores/snes9x_libretro.so'
+rompath = '/home/atmc/Desktop/CloudArcade-master/roms/snes/A.smc'
+
 
 def main():
     es = py_retro.core.EmulatedSystem(libpath)
@@ -13,7 +15,7 @@ def main():
     screen = py_retro.pygame_video.pygame_display_set_mode(es, False)
 
     py_retro.pygame_video.set_video_refresh_surface(es, screen)
-    py_retro.portaudio_audio.set_audio_sample_internal(es)
+    # py_retro.portaudio_audio.set_audio_sample_internal(es)
     py_retro.pygame_input.set_input_poll_joystick(es)
 
     # run each frame until closed.
