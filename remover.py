@@ -1,5 +1,5 @@
 import shutil
 import os
 
-shutil.rmtree('/home/atmc/Desktop/CloudArcade-master/Code/bmps')
-os.mkdir('/home/atmc/Desktop/CloudArcade-master/Code/bmps')
+shutil.rmtree('/home/atmc/CloudArcade/Code/bmps')
+os.mkdir('/home/atmc/CloudArcade/Code/bmps')

@@ -9,7 +9,7 @@ from io import StringIO
 from io import BytesIO
 from PIL import Image
 count = 0
-Queue = []
+Frame = None
 def randomString(stringLength=10):
     """Generate a random string of fixed length """
     letters = string.ascii_lowercase
@@ -53,10 +53,11 @@ def set_video_refresh_cb(core, callback):
 def set_video_refresh_surface(core, targetsurf, scale=False):
     if not scale:
         def wrapper(surf):
-            global count
+            global count,Frame
             count+=1
-            fname = 'bmps/'+str(count)+'.bmp'
+            fname = 'bmps/temp.bmp'
             pygame.image.save(surf, fname)
+            Frame =open(fname, 'rb').read()
             targetsurf.blit(surf, (0, 0))
 
     else:
@@ -65,6 +66,9 @@ def set_video_refresh_surface(core, targetsurf, scale=False):
 
     set_video_refresh_cb(core, wrapper)
 
+def getFrame():
+    global Frame
+    return Frame
 
 def pygame_display_set_mode(core, use_max=True):
     key = 'max_size' if use_max else 'base_size'

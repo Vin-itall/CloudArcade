@@ -1,14 +1,28 @@
 
 import pygame
 import py_retro
+import time
+from flask import Flask, render_template, Response
+from os import path
+
+app = Flask(__name__)
 # import os
 # os.environ["SDL_VIDEODRIVER"] = "dummy"
+queue =[]
+libpath = '/home/atmc/CloudArcade/cores/snes9x_libretro.so'
+rompath = '/home/atmc/CloudArcade/test roms/snes/A.smc'
 
-libpath = '/home/atmc/Desktop/CloudArcade-master/cores/snes9x_libretro.so'
-rompath = '/home/atmc/Desktop/CloudArcade-master/roms/snes/A.smc'
+@app.route('/')
+def index():
+    """Video streaming home page."""
+    return render_template('index.html')
 
+@app.route('/video_feed')
+def video_feed():
+    """Video streaming route. Put this in the src attribute of an img tag."""
+    return Response(gen(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
-def main():
+def gen():
     es = py_retro.core.EmulatedSystem(libpath)
     es.load_game_normal(path=rompath)
 
@@ -26,6 +40,8 @@ def main():
     while running:
         es.run()
         pygame.display.flip()
+        updateframe = py_retro.pygame_video.getFrame()
+        yield (b'--frame\r\n'b'Content-Type: image/bmp\r\n\r\n' + updateframe + b'\r\n')
         clock.tick(fps)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -33,4 +49,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    app.run(host='0.0.0.0', port=5000, debug=True, threaded=True)
