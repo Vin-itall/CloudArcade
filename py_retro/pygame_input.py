@@ -40,10 +40,29 @@ hatdirs = {
 MAX_PLAYERS = 8
 MAX_MAPPINGS = 20
 
-padcache = [[0] * MAX_MAPPINGS for i in range(MAX_PLAYERS)]
+padcache =  [[0] * MAX_MAPPINGS for i in range(MAX_PLAYERS)]
+spadcache = [[0] * MAX_MAPPINGS for i in range(MAX_PLAYERS)]
 joy_mappings = [[joymapping() for i in range(MAX_MAPPINGS)] for j in range(MAX_PLAYERS)]
 sdl_joy = [None] * MAX_PLAYERS
 num_players = 0
+
+bin = False
+
+def receive_spadcache(rpadcache):
+    global spadcache
+    spadcache = rpadcache
+
+def server_padcache():
+    global padcache, sdl_joy,bin
+    padcache = spadcache
+    # if sdl_joy[0]:
+    #     print('gaya')
+    #     if padcache[0][3] == 1:
+    #         padcache[0][3] = 0
+    #     else:
+    #         print('Hua change')
+    #         padcache[0][3] = 1
+
 
 def keyboard_to_padcache():
     global padcache, sdl_joy
@@ -134,8 +153,9 @@ def input_poll_cb():
 
 
 def input_state_cb(port, device, index, id):
-    global padcache
+    global padcache,custompadcache
     return padcache[port][id]
+
 
 
 def set_input_poll_joystick(core, mapping=None, joyindex=0, player=0):
@@ -190,7 +210,8 @@ def set_input_poll_joystick(core, mapping=None, joyindex=0, player=0):
     # if this is the first call
     if not num_players:
         # core.set_input_poll_cb(input_poll_cb)
-        core.set_input_poll_cb(keyboard_to_padcache)
+        # core.set_input_poll_cb(keyboard_to_padcache)
+        core.set_input_poll_cb(server_padcache)
         core.set_input_state_cb(input_state_cb)
 
     if num_players <= player:

@@ -5,10 +5,22 @@ import time
 from flask import Flask, render_template, Response
 from os import path
 
+from py_retro import core, pygame_input
 app = Flask(__name__)
-# import os
-# os.environ["SDL_VIDEODRIVER"] = "dummy"
-queue =[]
+
+buttonStart = 0
+buttonA = 0
+buttonB = 0
+buttonX = 0
+buttonY = 0
+buttonSelect =0
+buttonUP =0
+buttonDOWN =0
+buttonLEFT =0
+buttonRIGHT =0
+
+import os
+os.environ["SDL_VIDEODRIVER"] = "dummy"
 libpath = '/home/atmc/CloudArcade/cores/snes9x_libretro.so'
 rompath = '/home/atmc/CloudArcade/test roms/snes/A.smc'
 
@@ -16,6 +28,124 @@ rompath = '/home/atmc/CloudArcade/test roms/snes/A.smc'
 def index():
     """Video streaming home page."""
     return render_template('index.html')
+
+@app.route('/start_action')
+def start_action():
+    global buttonStart
+    buttonStart = 1
+    return ("nothing")
+
+@app.route('/a_action')
+def a_action():
+    global buttonA
+    buttonA = 1
+    return ("nothing")
+
+@app.route('/b_action')
+def b_action():
+    global buttonB
+    buttonB = 1
+    return ("nothing")
+
+@app.route('/x_action')
+def x_action():
+    global buttonX
+    buttonX = 1
+    return ("nothing")
+
+@app.route('/y_action')
+def y_action():
+    global buttonY
+    buttonY = 1
+    return ("nothing")
+
+@app.route('/select_action')
+def select_action():
+    global buttonSelect
+    buttonSelect = 1
+    return ("nothing")
+
+@app.route('/u_action')
+def u_action():
+    global buttonUP
+    buttonUP = 1
+    return ("nothing")
+
+@app.route('/d_action')
+def d_action():
+    global buttonDOWN
+    buttonDOWN = 1
+    return ("nothing")
+
+@app.route('/l_action')
+def l_action():
+    global buttonLEFT
+    buttonLEFT = 1
+    return ("nothing")
+
+@app.route('/r_action')
+def r_action():
+    global buttonRIGHT
+    buttonRIGHT = 1
+    return ("nothing")
+
+def clearAll():
+    global buttonStart,buttonA,buttonB,buttonX,buttonY,buttonSelect,buttonUP,buttonDOWN,buttonLEFT,buttonRIGHT
+    buttonStart = 0
+    buttonA = 0
+    buttonB = 0
+    buttonX = 0
+    buttonY = 0
+    buttonSelect =0
+    buttonUP =0
+    buttonDOWN =0
+    buttonLEFT =0
+    buttonRIGHT =0
+
+def getCache():
+    global buttonStart, buttonA, buttonB, buttonX, buttonY, buttonSelect, buttonUP, buttonDOWN, buttonLEFT, buttonRIGHT
+    ccache = customcache = [[0] * 20 for i in range(8)]
+    if buttonStart == 1:
+        ccache[0][3] = 1
+    else:
+        ccache[0][3] = 0
+    if buttonA == 1:
+        ccache[0][8] = 1
+    else:
+        ccache[0][8] = 0
+    if buttonB == 1:
+        ccache[0][0] = 1
+    else:
+        ccache[0][0] = 0
+    if buttonX == 1:
+        ccache[0][9] = 1
+    else:
+        ccache[0][9] = 0
+    if buttonY == 1:
+        ccache[0][1] = 1
+    else:
+        ccache[0][1] = 0
+    if buttonSelect == 1:
+        ccache[0][2] = 1
+    else:
+        ccache[0][2] = 0
+    if buttonUP == 1:
+        ccache[0][4] = 1
+    else:
+        ccache[0][4] = 0
+    if buttonDOWN == 1:
+        ccache[0][5] = 1
+    else:
+        ccache[0][5] = 0
+    if buttonLEFT == 1:
+        ccache[0][6] = 1
+    else:
+        ccache[0][6] = 0
+    if buttonRIGHT == 1:
+        ccache[0][7] = 1
+    else:
+        ccache[0][7] = 0
+    return ccache
 
 @app.route('/video_feed')
 def video_feed():
@@ -36,10 +166,15 @@ def gen():
     running = True
     fps = es.get_av_info()['fps'] or 60
     clock = pygame.time.Clock()
-
+    MAX_MAPPINGS = 20
+    MAX_PLAYERS = 8
     while running:
+        customcache = [[0] * MAX_MAPPINGS for i in range(MAX_PLAYERS)]
+        # pygame.event.pump()
         es.run()
         pygame.display.flip()
+        pygame_input.receive_spadcache(getCache())
+        clearAll()
         updateframe = py_retro.pygame_video.getFrame()
         yield (b'--frame\r\n'b'Content-Type: image/bmp\r\n\r\n' + updateframe + b'\r\n')
         clock.tick(fps)

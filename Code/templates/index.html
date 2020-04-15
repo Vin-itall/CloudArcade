@@ -1,9 +1,122 @@
 <html>
   <head>
-    <title>Video Streaming Demonstration</title>
+    <title>Retro CloudArcade</title>
   </head>
   <body>
-    <h1>Video Streaming Demonstration</h1>
+    <h1>Retro CloudArcade</h1>
     <img src="{{ url_for('video_feed') }}">
+    <br>
+    <br>
+    <form><a href=# id=startButton><button id="start">Start</button></a>
+        <a href=# id=aButton><button id="a">A</button></a>
+        <a href=# id=bButton><button id="b">B</button></a>
+        <a href=# id=xButton><button id="x">X</button></a>
+        <a href=# id=yButton><button id="y">Y</button></a>
+        <a href=# id=selectButton><button id="sel">Select</button></a>
+        <a href=# id=uButton><button id="u">UP</button></a>
+        <a href=# id=dButton><button id="d">DOWN</button></a>
+        <a href=# id=lButton><button id="l">LEFT</button></a>
+        <a href=# id=rButton><button id="r">RIGHT</button></a>
+     </form>
+<!--  <script>-->
+<!--    document.getElementById("start").addEventListener("click", sendButton);-->
+<!--    function sendButton() {-->
+<!--      // Send to server-->
+<!--      document.getElementById("start").innerHTML = "MY DEAR FRIEND";-->
+<!--    }-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type=text/javascript>
+        $(function() {
+          $('a#startButton').bind('click', function() {
+            $.getJSON('/start_action',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+        $(function() {
+          $('a#aButton').bind('click', function() {
+            $.getJSON('/a_action',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+        $(function() {
+          $('a#bButton').bind('click', function() {
+            $.getJSON('/b_action',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+        $(function() {
+          $('a#xButton').bind('click', function() {
+            $.getJSON('/x_action',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+        $(function() {
+          $('a#yButton').bind('click', function() {
+            $.getJSON('/y_action',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+        $(function() {
+          $('a#selectButton').bind('click', function() {
+            $.getJSON('/select_action',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+        $(function() {
+          $('a#uButton').bind('click', function() {
+            $.getJSON('/u_action',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+        $(function() {
+          $('a#dButton').bind('click', function() {
+            $.getJSON('/d_action',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+        $(function() {
+          $('a#lButton').bind('click', function() {
+            $.getJSON('/l_action',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+        $(function() {
+          $('a#rButton').bind('click', function() {
+            $.getJSON('/r_action',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+</script>
+
   </body>
 </html>
