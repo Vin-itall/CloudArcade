@@ -21,8 +21,8 @@ buttonRIGHT =0
 
 import os
 os.environ["SDL_VIDEODRIVER"] = "dummy"
-libpath = '/home/atmc/CloudArcade/cores/snes9x_libretro.so'
-rompath = '/home/atmc/CloudArcade/test roms/snes/A.smc'
+libpath = '/home/atmc/CloudArcade/CloudWorker/cores/snes9x_libretro.so'
+rompath = '/home/atmc/CloudArcade/CloudWorker/test roms/snes/A.smc'
 
 @app.route('/')
 def index():
