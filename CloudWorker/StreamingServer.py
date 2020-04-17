@@ -26,8 +26,8 @@ buttonLEFT =0
 buttonRIGHT =0
 buttonQuit = 0
 
-libpath = '/home/atmc/CloudArcade/CloudWorker/cores/snes9x_libretro.so'
-rompath = '/home/atmc/CloudArcade/CloudWorker/test roms/snes/'+str(Game)
+libpath = '/home/vjachary/CloudArcade/CloudWorker/cores/snes9x_libretro.so'
+rompath = '/home/vjachary/CloudArcade/CloudWorker/test roms/snes/'+str(Game)
 
 @app.route('/'+str(Username))
 def index():
@@ -197,4 +197,4 @@ def gen():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8000, debug=False, threaded=True)
+    app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
