@@ -4,8 +4,14 @@ import py_retro
 import time
 from flask import Flask, render_template, Response
 from os import path
-
 from py_retro import core, pygame_input
+import sys
+import os
+os.environ["SDL_VIDEODRIVER"] = "dummy"
+
+Username = sys.argv[1]
+Game = sys.argv[2]
+
 app = Flask(__name__)
 
 buttonStart = 0
@@ -18,13 +24,12 @@ buttonUP =0
 buttonDOWN =0
 buttonLEFT =0
 buttonRIGHT =0
+buttonQuit = 0
 
-import os
-os.environ["SDL_VIDEODRIVER"] = "dummy"
 libpath = '/home/atmc/CloudArcade/CloudWorker/cores/snes9x_libretro.so'
-rompath = '/home/atmc/CloudArcade/CloudWorker/test roms/snes/A.smc'
+rompath = '/home/atmc/CloudArcade/CloudWorker/test roms/snes/'+str(Game)
 
-@app.route('/')
+@app.route('/'+str(Username))
 def index():
     """Video streaming home page."""
     return render_template('index.html')
@@ -89,6 +94,13 @@ def r_action():
     buttonRIGHT = 1
     return ("nothing")
 
+@app.route('/q_action')
+def q_action():
+    global buttonQuit
+    os.system("shutdown now -h")
+    return ("nothing")
+
+
 def clearAll():
     global buttonStart,buttonA,buttonB,buttonX,buttonY,buttonSelect,buttonUP,buttonDOWN,buttonLEFT,buttonRIGHT
     buttonStart = 0
@@ -103,7 +115,7 @@ def clearAll():
     buttonRIGHT =0
 
 def getCache():
-    global buttonStart, buttonA, buttonB, buttonX, buttonY, buttonSelect, buttonUP, buttonDOWN, buttonLEFT, buttonRIGHT
+    global buttonStart, buttonA, buttonB, buttonX, buttonY, buttonSelect, buttonUP, buttonDOWN, buttonLEFT, buttonRIGHT,buttonQuit
     ccache = customcache = [[0] * 20 for i in range(8)]
     if buttonStart == 1:
         ccache[0][3] = 1
@@ -146,6 +158,7 @@ def getCache():
     else:
         ccache[0][7] = 0
     return ccache
+	
 
 @app.route('/video_feed')
 def video_feed():
@@ -184,4 +197,4 @@ def gen():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True, threaded=True)
+    app.run(host='0.0.0.0', port=8000, debug=False, threaded=True)
