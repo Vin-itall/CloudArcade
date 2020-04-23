@@ -11,6 +11,7 @@ os.environ["SDL_VIDEODRIVER"] = "dummy"
 
 Username = sys.argv[1]
 Game = sys.argv[2]
+Core = sys.argv[3]
 
 app = Flask(__name__)
 
@@ -26,8 +27,9 @@ buttonLEFT =0
 buttonRIGHT =0
 buttonQuit = 0
 
-libpath = '/home/vjachary/CloudArcade/CloudWorker/cores/snes9x_libretro.so'
-rompath = '/home/vjachary/CloudArcade/CloudWorker/test roms/snes/'+str(Game)
+
+libpath = '/home/atmc/CloudArcade/Worker/Cores/' + str(Core) +'.so'
+rompath = '/home/atmc/CloudArcade/Worker/test roms/'+str(Core)+'/'+str(Game)
 
 @app.route('/'+str(Username))
 def index():
