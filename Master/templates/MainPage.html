@@ -9,14 +9,47 @@
     <form action="/login_action" method="GET">
         <label>User Name:</label>
         <input type="text" id="uname" name="username">
+
+          <label>Core:</label>
+        <select id="cores" name="core" onChange="changegames(this.value);">
+          <option value="" disabled selected>Select</option>
+  		      <option value="snes">SNES</option>
+ 		        <!-- <option value="NES">NES</option> -->
+		    </select>
+
         <label>Game:</label>
         <select id="games" name="game">
-  		<option value="A">Aladdin</option>
- 		<option value="BSM">Barbie Super Model</option>
-  		<option value="BB">Brawl Brothers</option>
-  		<option value="AAT">Andre Agassi Tennis</option>
-		</select>
+          <option value="" disabled selected>Select</option>
+  		      <!-- <option value="A">Aladdin</option>
+ 		        <option value="BSM">Barbie Super Model</option>
+  		      <option value="BB">Brawl Brothers</option>
+  		      <option value="AAT">Andre Agassi Tennis</option> -->
+
+		    </select>
 		<button id="login" type="submit">Play!</button>
+
+
         </form>
+
+
+        <script>
+        var gamesByCore = {
+          snes: ["Aladdin", "Barbie Super Model", "Brawl Brothers", "Andre Agassi Tennis"],
+          nes: ["Game1", "Game2", "Game3", "Game4"]
+        }
+
+        function changegames(value) {
+          // console.log("Called!!!");
+            if (value.length == 0) document.getElementById("games").innerHTML = "<option></option>";
+            else {
+                var gameOptions = "";
+                for (gameId in gamesByCore[value]) {
+                    gameOptions += "<option>" + gamesByCore[value][gameId] + "</option>";
+                }
+                document.getElementById("games").innerHTML = gameOptions;
+          }
+        }
+
+        </script>
   </body>
 </html>

@@ -14,8 +14,8 @@ topic_path = publisher.topic_path(project_id, topic_name)
 
 thread = None
 
-def publish_message(username, game):
-    future = publisher.publish(topic_path, b'', username=username, game=game)
+def publish_message(username, game, core):
+    future = publisher.publish(topic_path, b'', username=username, game=game, core=core)
     print('Successfully uploaded' + str(future.result()))
 
 @Controller.route('/')
@@ -29,8 +29,10 @@ def index():
 @Controller.route('/login_action')
 def login():
     username = request.args.get('username')
+    core = request.args.get('core')
     game = request.args.get('game')
-    publish_message(username, game)
+
+    publish_message(username, game, core)
     return ('Loading...')
 
 if __name__ == '__main__':

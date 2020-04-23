@@ -13,12 +13,14 @@ def listen():
     def callback(message):
         username = message.attributes.get('username')
         game = message.attributes.get('game')
-
+        core = message.attributes.get('core')
+        print(username, game, core)
         compute = googleapiclient.discovery.build('compute', 'v1')
         result = compute.instances().list(project='cloudarcademaster-274423', zone='us-west2-a', filter='status=TERMINATED').execute()
         instances = result['items'] if 'items' in result else None
         if instances:
-            print('DEKHO' + str(instances[0]['id']))
+            # print('DEKHO' + str(instances[0]['id']))
+
             # Start thread for this ID
 
             # Ack when IP is available
