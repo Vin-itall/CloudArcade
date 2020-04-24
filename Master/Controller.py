@@ -1,22 +1,20 @@
 from flask import Flask, render_template, Response, request
-from google.cloud import pubsub_v1
 import time
 import threading
 import Listener
+import boto3
 
 Controller = Flask(__name__)
 
-project_id = "cloudarcademaster-274423"
-topic_name = "loginqueue"
-
-publisher = pubsub_v1.PublisherClient()
-topic_path = publisher.topic_path(project_id, topic_name)
+queue_url = 'https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo'
+sqs = boto3.client('sqs', region_name='us-east-1')
 
 thread = None
 
 def publish_message(username, game, core):
-    future = publisher.publish(topic_path, b'', username=username, game=game, core=core)
-    print('Successfully uploaded' + str(future.result()))
+    MessageAttributes = "{'game': " + str(game)  + ",'core': " + str(core) + ",'username':" + str(username) + "}"
+    sqs.send_message(QueueUrl=queue_url, MessageGroupId=username, MessageBody=MessageAttributes)
+    print('Successfully uploaded')
 
 @Controller.route('/')
 def index():

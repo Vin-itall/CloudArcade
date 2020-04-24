@@ -1,39 +1,47 @@
 import time
-from google.cloud import pubsub_v1
+import boto3
 import googleapiclient.discovery
+from pprint import pprint
+import threading
+import InitiateWorker
+
+sqs = boto3.client('sqs', region_name='us-east-1')
+Queue = 'https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo'
+compute = googleapiclient.discovery.build('compute', 'v1')
+thread = None
+
+def checkQueueSize():
+    QSize = sqs.get_queue_attributes(
+            QueueUrl=Queue,
+            AttributeNames=['ApproximateNumberOfMessages']
+        )
+    QSize = QSize['Attributes']['ApproximateNumberOfMessages']
+    return QSize
+
+def getTerminatedInstances():
+    result = compute.instances().list(project='cloudarcademaster-274423', zone='us-west2-a', filter='status=TERMINATED').execute()
+    instances = result['items'] if 'items' in result else None
+
+    return instances
 
 def listen():
-    project_id = "cloudarcademaster-274423"
-    subscription_name = "test"
-    # timeout = 5.0  # "How long the subscriber should listen for messages in seconds"
+    sqs = boto3.client('sqs', region_name='us-east-1')
+    Queue = 'https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo'
 
-    subscriber = pubsub_v1.SubscriberClient()
-    subscription_path = subscriber.subscription_path(project_id, subscription_name)
+    while True:
+        qSize = int(checkQueueSize())
+        instances = getTerminatedInstances()
+        numTerminated = len(instances) if instances else 0
+        numToStart = min(qSize, numTerminated)
+        # print(numTerminated)
 
-    def callback(message):
-        username = message.attributes.get('username')
-        game = message.attributes.get('game')
-        core = message.attributes.get('core')
-        print(username, game, core)
-        compute = googleapiclient.discovery.build('compute', 'v1')
-        result = compute.instances().list(project='cloudarcademaster-274423', zone='us-west2-a', filter='status=TERMINATED').execute()
-        instances = result['items'] if 'items' in result else None
-        if instances:
-            # print('DEKHO' + str(instances[0]['id']))
+        for i in range(numToStart):
+            instance = instances[i]
 
-            # Start thread for this ID
+            thread = threading.Thread(target=InitiateWorker.initiate, args=(instance, ))
+            thread.start()
 
-            # Ack when IP is available
-            message.ack()
+        time.sleep(10)
 
-    # Limit the subscriber to only have ten outstanding messages at a time.
-    flow_control = pubsub_v1.types.FlowControl(max_messages=1)
-
-    streaming_pull_future = subscriber.subscribe(subscription_path, callback=callback, flow_control=flow_control)
-    print("Listening for messages on {}..\n".format(subscription_path))
-
-    with subscriber:
-        try:
-            streaming_pull_future.result()
-        except:  # empty
-            streaming_pull_future.cancel()
+if __name__ == '__main__':
+    listen()
