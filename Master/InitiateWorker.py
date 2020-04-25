@@ -10,5 +10,5 @@ def initiate(instance):
     Receipt = key['Messages'][0]['ReceiptHandle']
     sqs.change_message_visibility(QueueUrl='https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo',
                        ReceiptHandle=Receipt, VisibilityTimeout = 200)
-    print(key['Messages'][0]['Body'])
+    
     # print(instance['name'])

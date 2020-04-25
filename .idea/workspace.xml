@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b8272d38-3821-4050-b8e2-000db5ad447b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Worker/StreamingServer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/StreamingServer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worker/cores/snes9x_libretro.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worker/cores/snes9x_libretro.so.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/CloudArcade.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CloudArcade.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
