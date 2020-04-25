@@ -1,4 +1,3 @@
-
 import pygame
 import py_retro
 import time
@@ -7,11 +6,18 @@ from os import path
 from py_retro import core, pygame_input
 import sys
 import os
-os.environ["SDL_VIDEODRIVER"] = "dummy"
+import googleapiclient.discovery
 
-Username = sys.argv[1]
-Game = sys.argv[2]
-Core = sys.argv[3]
+os.environ["SDL_VIDEODRIVER"] = "dummy"
+compute = googleapiclient.discovery.build('compute', 'v1')
+
+request = compute.instances().get(project='cloudarcademaster-274423', zone='us-west3-a', instance='worker-2')
+response = request.execute()
+meta = response['metadata']['items']
+
+Username = meta[0]['value']
+Game = meta[2]['value']
+Core = meta[1]['value']
 
 app = Flask(__name__)
 
@@ -28,8 +34,8 @@ buttonRIGHT =0
 buttonQuit = 0
 
 
-libpath = '/home/atmc/CloudArcade/Worker/Cores/' + str(Core) +'.so'
-rompath = '/home/atmc/CloudArcade/Worker/test roms/'+str(Core)+'/'+str(Game)
+libpath = '/Users/demonz/CloudArcade/Worker/Cores/' + str(Core) +'.so'
+rompath = '/Users/demonz/CloudArcade/Worker/test roms/'+str(Core)+'/'+str(Game)
 
 @app.route('/'+str(Username))
 def index():
@@ -160,7 +166,7 @@ def getCache():
     else:
         ccache[0][7] = 0
     return ccache
-	
+
 
 @app.route('/video_feed')
 def video_feed():
