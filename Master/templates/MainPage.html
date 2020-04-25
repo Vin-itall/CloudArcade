@@ -38,13 +38,20 @@
           nes: ["Game1", "Game2", "Game3", "Game4"]
         }
 
+        var nameToVal = {
+          "Aladdin": "A.smc",
+          "Barbie Super Model": "BSM.smc",
+          "Brawl Brothers": "BB.smc",
+          "Andre Agassi Tennis": "AAT.smc"
+        }
+
         function changegames(value) {
           // console.log("Called!!!");
             if (value.length == 0) document.getElementById("games").innerHTML = "<option></option>";
             else {
                 var gameOptions = "";
                 for (gameId in gamesByCore[value]) {
-                    gameOptions += "<option>" + gamesByCore[value][gameId] + "</option>";
+                    gameOptions += "<option value=" + nameToVal[gamesByCore[value][gameId]] + ">" + gamesByCore[value][gameId] + "</option>";
                 }
                 document.getElementById("games").innerHTML = gameOptions;
           }
