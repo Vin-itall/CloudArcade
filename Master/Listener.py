@@ -19,12 +19,12 @@ def checkQueueSize():
     return QSize
 
 def getTerminatedInstances():
-    result = compute.instances().list(project='cloudarcademaster-274423', zone='us-west2-a', filter='status=TERMINATED').execute()
+    result = compute.instances().list(project='cloudarcademaster-274423', zone='us-west3-a', filter='status=TERMINATED').execute()
     instances = result['items'] if 'items' in result else None
-    returnable = []
-    for item in instances:
-        if item['status']== "TERMINATED":
-            returnable.append(item)
+    returnable = instances
+    # for item in instances:
+    #     if item['status']== "TERMINATED":
+    #         returnable.append(item)
     return returnable
 
 def listen():
@@ -34,13 +34,15 @@ def listen():
         qSize = int(checkQueueSize())
         instances = getTerminatedInstances()
         numTerminated = len(instances) if instances else 0
-        print(numTerminated)
+        # print(qSize)
+        # print(numTerminated)
         numToStart = min(qSize, numTerminated)
-        # for i in range(numToStart):
-        #     instance = instances[i]
-        #     thread = threading.Thread(target=InitiateWorker.initiate, args=(instance,))
-        #     thread.start()
-        # time.sleep(10)
+        for i in range(numToStart):
+            instance = instances[i]
+            thread = threading.Thread(target=InitiateWorker.initiate, args=(instance,))
+            thread.start()
+            print('New worker')
+        time.sleep(10)
 
 if __name__ == '__main__':
     listen()

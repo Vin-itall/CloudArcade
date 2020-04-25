@@ -12,7 +12,7 @@ sqs = boto3.client('sqs', region_name='us-east-1')
 thread = None
 
 def publish_message(username, game, core):
-    MessageAttributes = "{'game': " + str(game)  + ",'core': " + str(core) + ",'username':" + str(username) + "}"
+    MessageAttributes = '{"game": ' + str(game)  + ',"core": ' + str(core) + ',"username": ' + str(username) + '}'
     sqs.send_message(QueueUrl=queue_url, MessageGroupId=username, MessageBody=MessageAttributes)
     print('Successfully uploaded')
 
