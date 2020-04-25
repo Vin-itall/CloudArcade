@@ -34,8 +34,8 @@ buttonRIGHT =0
 buttonQuit = 0
 
 
-libpath = '/Users/demonz/CloudArcade/Worker/Cores/' + str(Core) +'.so'
-rompath = '/Users/demonz/CloudArcade/Worker/test roms/'+str(Core)+'/'+str(Game)
+libpath = '/home/vjachary/CloudArcade/Worker/Cores/' + str(Core) +'.so'
+rompath = '/home/vjachary/CloudArcade/Worker/test roms/'+str(Core)+'/'+str(Game)
 
 @app.route('/'+str(Username))
 def index():
