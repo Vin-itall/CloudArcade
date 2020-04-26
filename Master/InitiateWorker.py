@@ -13,7 +13,7 @@ def initiate(instance):
     key = sqs.receive_message(QueueUrl='https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo')
     Receipt = key['Messages'][0]['ReceiptHandle']
     sqs.change_message_visibility(QueueUrl='https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo',
-                       ReceiptHandle=Receipt, VisibilityTimeout = 10)
+                       ReceiptHandle=Receipt, VisibilityTimeout = 100)
     message = key['Messages'][0]['Body']
     message = json.loads(message)
     print('Message loaded')
