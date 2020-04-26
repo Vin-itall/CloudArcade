@@ -10,6 +10,14 @@ import googleapiclient.discovery
 from pprint import pprint
 import boto3
 
+sqs = boto3.client(
+    'sqs',
+    'us-east-1',
+    aws_access_key_id= 'AKIAQ7PPHJ5MGBKCJA7G',
+    aws_secret_access_key= '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'
+    # aws_session_token=SESSION_TOKEN,
+)
+
 def publish_message(Username, ip):
     global queue_url
     MessageAttributes = ip
@@ -20,7 +28,7 @@ os.environ["SDL_VIDEODRIVER"] = "dummy"
 compute = googleapiclient.discovery.build('compute', 'v1')
 
 # AWS Queue
-sqs = boto3.client('sqs', region_name='us-east-1')
+# sqs = boto3.client('sqs', region_name='us-east-1')
 queue_url = 'https://sqs.us-east-1.amazonaws.com/067610562392/responseQueue.fifo'
 
 request = compute.instances().get(project='cloudarcademaster-274423', zone='us-west3-a', instance='worker-2')
