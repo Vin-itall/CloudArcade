@@ -31,6 +31,15 @@ def initiate(instance):
           {
            "key": "game",
            "value": message['game']
+          },
+          {
+           "key": "startup-script",
+           "value": '''#! /bin/bash
+            pip3 install pygame flask boto3 pillow
+            pip3 install google-api-python-client
+            apt install python3-pyaudio
+            cd /home/vjachary/CloudArcade/Worker/
+            python3 /home/vjachary/CloudArcade/Worker/StreamingServer.py'''
           }
          ]
     }
