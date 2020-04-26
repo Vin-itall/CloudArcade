@@ -31,17 +31,18 @@ def listen():
     sqs = boto3.client('sqs', region_name='us-east-1')
     Queue = 'https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo'
     while True:
+        print('Checking service queue for new message...')
         qSize = int(checkQueueSize())
         instances = getTerminatedInstances()
         numTerminated = len(instances) if instances else 0
-        # print(qSize)
-        # print(numTerminated)
+        print('Queue Size:'+str(qSize))
+        print('Num Terminated:'+str(numTerminated))
         numToStart = min(qSize, numTerminated)
+        print('Starting no. of workers ='+str(numToStart))
         for i in range(numToStart):
             instance = instances[i]
-            thread = threading.Thread(target=InitiateWorker.initiate, args=(instance,))
-            thread.start()
-            print('New worker')
+            InitiateWorker.initiate(instance)
+
         time.sleep(10)
 
 if __name__ == '__main__':

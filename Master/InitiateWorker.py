@@ -8,7 +8,7 @@ import json
 compute = googleapiclient.discovery.build('compute', 'v1')
 
 def initiate(instance):
-
+    print('Starting new worker ' + instance['name'])
     sqs = boto3.client('sqs',region_name = 'us-east-1')
     key = sqs.receive_message(QueueUrl='https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo')
     Receipt = key['Messages'][0]['ReceiptHandle']
@@ -16,6 +16,7 @@ def initiate(instance):
                        ReceiptHandle=Receipt, VisibilityTimeout = 10)
     message = key['Messages'][0]['Body']
     message = json.loads(message)
+    print('Message loaded')
 
     metadata_body = {
          "fingerprint": instance['metadata']['fingerprint'],
@@ -47,6 +48,7 @@ def initiate(instance):
     try:
         request = compute.instances().setMetadata(project='cloudarcademaster-274423', zone='us-west3-a', instance=instance['name'], body=metadata_body)
         response = request.execute()
+        print('Metadata Set')
 
         if response:
             sqs.delete_message(QueueUrl = 'https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo', ReceiptHandle = Receipt)
@@ -56,6 +58,7 @@ def initiate(instance):
     request = compute.instances().start(project='cloudarcademaster-274423', zone='us-west3-a', instance=instance['name'])
     response = request.execute()
 
+    print('New Worker started for user ' + message['username'])
     # request = compute.instances().get(project='cloudarcademaster-274423', zone='us-west3-a', instance=instance)
     # response = request.execute()
     # pprint(response['metadata'])
