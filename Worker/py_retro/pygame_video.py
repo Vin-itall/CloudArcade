@@ -55,7 +55,7 @@ def set_video_refresh_surface(core, targetsurf, scale=False):
         def wrapper(surf):
             global count,Frame
             count+=1
-            fname = 'bmps/temp.bmp'
+            fname = '/home/vjachary/CloudArcade/Worker/bmps/temp.bmp'
             pygame.image.save(surf, fname)
             Frame =open(fname, 'rb').read()
             targetsurf.blit(surf, (0, 0))

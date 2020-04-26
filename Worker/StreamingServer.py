@@ -31,7 +31,7 @@ compute = googleapiclient.discovery.build('compute', 'v1')
 # sqs = boto3.client('sqs', region_name='us-east-1')
 queue_url = 'https://sqs.us-east-1.amazonaws.com/067610562392/responseQueue.fifo'
 
-request = compute.instances().get(project='cloudarcademaster-274423', zone='us-west3-a', instance='worker-2')
+request = compute.instances().get(project='cloudarcademaster-274423', zone='us-west3-a', instance='worker-1')
 response = request.execute()
 meta = response['metadata']['items']
 ip = response['networkInterfaces'][0]['accessConfigs'][0]['natIP']
