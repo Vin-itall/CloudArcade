@@ -7,17 +7,32 @@ from py_retro import core, pygame_input
 import sys
 import os
 import googleapiclient.discovery
+from pprint import pprint
+import boto3
+
+def publish_message(Username, ip):
+    global queue_url
+    MessageAttributes = ip
+    sqs.send_message(QueueUrl=queue_url, MessageGroupId=Username, MessageBody=MessageAttributes)
+    print('Successfully uploaded')
 
 os.environ["SDL_VIDEODRIVER"] = "dummy"
 compute = googleapiclient.discovery.build('compute', 'v1')
 
+# AWS Queue
+sqs = boto3.client('sqs', region_name='us-east-1')
+queue_url = 'https://sqs.us-east-1.amazonaws.com/067610562392/responseQueue.fifo'
+
 request = compute.instances().get(project='cloudarcademaster-274423', zone='us-west3-a', instance='worker-2')
 response = request.execute()
 meta = response['metadata']['items']
+ip = response['networkInterfaces'][0]['accessConfigs'][0]['natIP']
 
 Username = meta[0]['value']
 Game = meta[2]['value']
 Core = meta[1]['value']
+ip = 'http://' + ip + ':80/' + Username
+publish_message(Username, ip)
 
 app = Flask(__name__)
 
