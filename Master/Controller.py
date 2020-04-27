@@ -4,6 +4,7 @@ import threading
 import Listener
 import boto3
 from pprint import pprint
+import AWS_CREDENTIALS
 
 Controller = Flask(__name__)
 

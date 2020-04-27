@@ -4,6 +4,7 @@ import googleapiclient.discovery
 from pprint import pprint
 import time
 import json
+import AWS_CREDENTIALS
 
 compute = googleapiclient.discovery.build('compute', 'v1')
 

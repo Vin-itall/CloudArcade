@@ -4,6 +4,7 @@ import googleapiclient.discovery
 from pprint import pprint
 import threading
 import InitiateWorker
+import AWS_CREDENTIALS
 
 sqs = boto3.client(
     'sqs',
