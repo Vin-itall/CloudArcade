@@ -13,8 +13,8 @@ response_queue_url = 'https://sqs.us-east-1.amazonaws.com/067610562392/responseQ
 sqs = boto3.client(
     'sqs',
     'us-east-1',
-    aws_access_key_id= AWS_CREDENTIALS.aws_access_key_id,
-    aws_secret_access_key= AWS_CREDENTIALS.aws_secret_access_key
+    aws_access_key_id = 'AKIAQ7PPHJ5MGBKCJA7G',
+    aws_secret_access_key= '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'
     # aws_session_token=SESSION_TOKEN,
 )
 
