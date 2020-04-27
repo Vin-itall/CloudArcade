@@ -9,12 +9,13 @@ import os
 import googleapiclient.discovery
 from pprint import pprint
 import boto3
+import AWS_CREDENTIALS
 
 sqs = boto3.client(
     'sqs',
     'us-east-1',
-    aws_access_key_id= 'AKIAQ7PPHJ5MGBKCJA7G',
-    aws_secret_access_key= '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'
+    aws_access_key_id= AWS_CREDENTIALS.aws_access_key_id,
+    aws_secret_access_key= AWS_CREDENTIALS.aws_secret_access_key
     # aws_session_token=SESSION_TOKEN,
 )
 

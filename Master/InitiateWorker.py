@@ -9,7 +9,13 @@ compute = googleapiclient.discovery.build('compute', 'v1')
 
 def initiate(instance):
     print('Starting new worker ' + instance['name'])
-    sqs = boto3.client('sqs',region_name = 'us-east-1')
+    sqs = boto3.client(
+        'sqs',
+        'us-east-1',
+        aws_access_key_id= AWS_CREDENTIALS.aws_access_key_id,
+        aws_secret_access_key= AWS_CREDENTIALS.aws_secret_access_key
+        # aws_session_token=SESSION_TOKEN,
+    )
     key = sqs.receive_message(QueueUrl='https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo')
     Receipt = key['Messages'][0]['ReceiptHandle']
     sqs.change_message_visibility(QueueUrl='https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo',

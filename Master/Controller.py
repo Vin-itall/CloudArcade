@@ -9,7 +9,13 @@ Controller = Flask(__name__)
 
 queue_url = 'https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo'
 response_queue_url = 'https://sqs.us-east-1.amazonaws.com/067610562392/responseQueue.fifo'
-sqs = boto3.client('sqs', region_name='us-east-1')
+sqs = boto3.client(
+    'sqs',
+    'us-east-1',
+    aws_access_key_id= AWS_CREDENTIALS.aws_access_key_id,
+    aws_secret_access_key= AWS_CREDENTIALS.aws_secret_access_key
+    # aws_session_token=SESSION_TOKEN,
+)
 
 thread = None
 

@@ -5,7 +5,13 @@ from pprint import pprint
 import threading
 import InitiateWorker
 
-sqs = boto3.client('sqs', region_name='us-east-1')
+sqs = boto3.client(
+    'sqs',
+    'us-east-1',
+    aws_access_key_id= AWS_CREDENTIALS.aws_access_key_id,
+    aws_secret_access_key= AWS_CREDENTIALS.aws_secret_access_key
+    # aws_session_token=SESSION_TOKEN,
+)
 Queue = 'https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo'
 compute = googleapiclient.discovery.build('compute', 'v1')
 thread = None
