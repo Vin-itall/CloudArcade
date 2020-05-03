@@ -28,8 +28,7 @@ def publish_message(Username, ip):
 os.environ["SDL_VIDEODRIVER"] = "dummy"
 compute = googleapiclient.discovery.build('compute', 'v1')
 
-# AWS Queue
-# sqs = boto3.client('sqs', region_name='us-east-1')
+
 queue_url = 'https://sqs.us-east-1.amazonaws.com/067610562392/responseQueue.fifo'
 
 request = compute.instances().get(project='cloudarcademaster-274423', zone='us-west3-a', instance='worker-1')
@@ -42,6 +41,7 @@ Game = meta[2]['value']
 Core = meta[1]['value']
 ip = 'http://' + ip + ':80/' + Username
 publish_message(Username, ip)
+
 
 app = Flask(__name__)
 
@@ -58,8 +58,8 @@ buttonRIGHT =0
 buttonQuit = 0
 
 
-libpath = '/home/vjachary/CloudArcade/Worker/Cores/' + str(Core) +'.so'
-rompath = '/home/vjachary/CloudArcade/Worker/test roms/'+str(Core)+'/'+str(Game)
+libpath = '/home/atmc/CloudArcade/Worker/Cores/' + str(Core) +'.so'
+rompath = '/home/atmc/CloudArcade/Worker/test roms/'+str(Core)+'/'+str(Game)
 
 @app.route('/'+str(Username))
 def index():
@@ -130,6 +130,31 @@ def r_action():
 def q_action():
     global buttonQuit
     os.system("shutdown now -h")
+    print("Quit")
+    return ("nothing")
+
+@app.route('/action_uup')
+def uu_action():
+    global buttonUP
+    buttonUP = 0
+    return ("nothing")
+
+@app.route('/action_dup')
+def du_action():
+    global buttonDOWN
+    buttonDOWN = 0
+    return ("nothing")
+
+@app.route('/action_lup')
+def lu_action():
+    global buttonLEFT
+    buttonLEFT = 0
+    return ("nothing")
+
+@app.route('/action_rup')
+def ru_action():
+    global buttonRIGHT
+    buttonRIGHT = 0
     return ("nothing")
 
 
@@ -141,10 +166,6 @@ def clearAll():
     buttonX = 0
     buttonY = 0
     buttonSelect =0
-    buttonUP =0
-    buttonDOWN =0
-    buttonLEFT =0
-    buttonRIGHT =0
 
 def getCache():
     global buttonStart, buttonA, buttonB, buttonX, buttonY, buttonSelect, buttonUP, buttonDOWN, buttonLEFT, buttonRIGHT,buttonQuit
@@ -194,7 +215,6 @@ def getCache():
 
 @app.route('/video_feed')
 def video_feed():
-    """Video streaming route. Put this in the src attribute of an img tag."""
     return Response(gen(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 def gen():

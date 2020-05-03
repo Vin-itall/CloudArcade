@@ -3,129 +3,506 @@
     <title>Retro CloudArcade</title>
   </head>
   <body>
-    <h1>Retro CloudArcade</h1>
+    <style>
+        body {
+          background-color: black;
+          font-family: cursive;
+          text-align: center;
+          }
+          .glow {
+            font-size: 80px;
+            color: #fff;
+            text-align: center;
+            -webkit-animation: glow 1s ease-in-out infinite alternate;
+            -moz-animation: glow 1s ease-in-out infinite alternate;
+            animation: glow 1s ease-in-out infinite alternate;
+          }
+
+          @-webkit-keyframes glow {
+            from {
+              text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+            }
+            
+            to {
+              text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+            }
+          }
+      form {
+          display: inline-block;
+        }
+        .sButton {
+          display: inline-block;
+          margin:7px;
+          font-weight: bold;
+          padding: 19px;
+          background-color: lightgray;
+          text-shadow: -1px -1px black, 1px 1px white;
+          color: blue;
+          -webkit-border-radius: 7px;
+          -moz-border-radius: 7px;
+          -o-border-radius: 7px;
+          border-radius: 7px;
+          box-shadow: 0 .2em gray; 
+          margin-right: 122px;
+          size: 10px;
+        }
+        .seButton {
+          display: inline-block;
+          margin:7px;
+          font-weight: bold;
+          padding: 19px;
+          background-color: lightgray;
+          text-shadow: -1px -1px black, 1px 1px white;
+          color: blue;
+          -webkit-border-radius: 7px;
+          -moz-border-radius: 7px;
+          -o-border-radius: 7px;
+          border-radius: 7px;
+          box-shadow: 0 .2em gray; 
+          margin-top: -65px;
+          margin-left: 125px;
+          size: 10px;
+        }
+        .quitButton {
+          display: inline-block;
+          margin:7px;
+          font-weight: bold;
+          padding: 19px;
+          background-color: lightgray;
+          text-shadow: -1px -1px black, 1px 1px white;
+          color: blue;
+          -webkit-border-radius: 7px;
+          -moz-border-radius: 7px;
+          -o-border-radius: 7px;
+          border-radius: 7px;
+          box-shadow: 0 .2em gray; 
+          margin-top: -65px;
+          margin-right: 15px;
+          margin-left: 370px;
+          size: 10px;
+        }
+
+        .start-button{
+          margin-bottom: 20px;
+        }
+
+        .aButton {
+          text-shadow: 1px 1px pink, -1px -1px maroon;
+
+          line-height: 1.7em;
+          text-align: center;
+          display: inline-block;
+          width: 13%;
+          -webkit-border-radius: .75em;
+          -moz-border-radius: .75em;
+          -o-border-radius: .75em;
+            border-radius: .55em;
+          background-color: red;
+          -webkit-box-shadow:  0 .2em maroon;
+          -moz-box-shadow:  0 .2em maroon;
+          -o-box-shadow:  0 .2em maroon;
+          box-shadow:  0 .2em maroon;
+          color: red;
+          margin: 5px;
+          background-color: red;
+          background-image: -o-linear-gradient(left top, pink 3%, red 22%, maroon 99%);
+          background-image: -moz-linear-gradient(left top, pink 3%, red 22%, maroon 99%);
+          background-image: -webkit-linear-gradient(left top, pink 3%, red 22%, maroon 99%);
+          background-image: linear-gradient(left top, pink 3%, red 22%, maroon 99%);
+          cursor: pointer;
+          padding-left: 5px;
+        }
+        .bButton {
+          text-shadow: 1px 1px pink, -1px -1px blue;
+
+          line-height: 1.7em;
+          text-align: center;
+          display: inline-block;
+          width: 13%;
+          -webkit-border-radius: .75em;
+          -moz-border-radius: .75em;
+          -o-border-radius: .75em;
+            border-radius: .55em;
+          background-color: blue;
+          -webkit-box-shadow:  0 .2em blue;
+          -moz-box-shadow:  0 .2em blue;
+          -o-box-shadow:  0 .2em blue;
+          box-shadow:  0 .2em blue;
+          color: blue;
+          margin: 5px;
+          background-color: blue;
+          background-image: -o-linear-gradient(left top ,blue 99%);
+          background-image: -moz-linear-gradient(left top, blue 99%);
+          background-image: -webkit-linear-gradient(left top,  blue 99%);
+          background-image: linear-gradient(left top, blue 99%);
+          cursor: pointer;
+          padding-left: 5px;
+        }
+        .xButton {
+          text-shadow: 1px 1px pink, -1px -1px green;
+
+          line-height: 1.7em;
+          text-align: center;
+          display: inline-block;
+          width: 13%;
+          -webkit-border-radius: .75em;
+          -moz-border-radius: .75em;
+          -o-border-radius: .75em;
+            border-radius: .55em;
+          background-color: green;
+          -webkit-box-shadow:  0 .2em green;
+          -moz-box-shadow:  0 .2em green;
+          -o-box-shadow:  0 .2em green;
+          box-shadow:  0 .2em green;
+          color: green;
+          margin: 5px;
+          background-color: green;
+          background-image: -o-linear-gradient(left top ,green 99%);
+          background-image: -moz-linear-gradient(left top, green 99%);
+          background-image: -webkit-linear-gradient(left top,  green 99%);
+          background-image: linear-gradient(left top, green 99%);
+          cursor: pointer;
+          padding-left: 5px;
+        }
+
+       .yButton {
+          text-shadow: 1px 1px pink, -1px -1px black;
+
+          line-height: 1.7em;
+          text-align: center;
+          display: inline-block;
+          width: 13%;
+          -webkit-border-radius: .75em;
+          -moz-border-radius: .75em;
+          -o-border-radius: .75em;
+            border-radius: .55em;
+          background-color: black;
+          -webkit-box-shadow:  0 .2em black;
+          -moz-box-shadow:  0 .2em black;
+          -o-box-shadow:  0 .2em black;
+          box-shadow:  0 .2em black;
+          color: black;
+          margin: 5px;
+          background-color: yellow;
+          background-image: -o-linear-gradient(left top ,yellow 99%);
+          background-image: -moz-linear-gradient(left top, yellow 99%);
+          background-image: -webkit-linear-gradient(left top,  yellow 99%);
+          background-image: linear-gradient(left top, yellow 99%);
+          cursor: pointer;
+          padding-left: 5px;
+        }
+        .btn-group{
+          margin-left: 500px;
+          margin-top: 100px;
+        }
+        .button {
+          text-shadow: 1px 1px pink, -1px -1px black;
+
+          line-height: 1.7em;
+          text-align: center;
+          display: inline-block;
+          width: 25%;
+          -webkit-border-radius: .75em;
+          -moz-border-radius: .75em;
+          -o-border-radius: .75em;
+            border-radius: .55em;
+          background-color: black;
+          -webkit-box-shadow:  0 .2em black;
+          -moz-box-shadow:  0 .2em black;
+          -o-box-shadow:  0 .2em black;
+          box-shadow:  0 .2em black;
+          color: black;
+          margin: 5px;
+          background-color: white;
+          background-image: -o-linear-gradient(left top ,white 99%);
+          background-image: -moz-linear-gradient(left top, white 99%);
+          background-image: -webkit-linear-gradient(left top,  white 99%);
+          background-image: linear-gradient(left top, white 99%);
+          cursor: pointer;
+          padding-left: 5px;
+        }
+        .arrow{
+          margin-top: 20px;
+        }
+       
+    </style> 
+
+    <h1 class="glow">Retro CloudArcade</h1>
     <img src="{{ url_for('video_feed') }}">
     <br>
     <br>
-    <form><a href=# id=startButton><button id="start">Start</button></a>
-        <a href=# id=aButton><button id="a">A</button></a>
-        <a href=# id=bButton><button id="b">B</button></a>
-        <a href=# id=xButton><button id="x">X</button></a>
-        <a href=# id=yButton><button id="y">Y</button></a>
-        <a href=# id=selectButton><button id="sel">Select</button></a>
-        <a href=# id=uButton><button id="u">UP</button></a>
-        <a href=# id=dButton><button id="d">DOWN</button></a>
-        <a href=# id=lButton><button id="l">LEFT</button></a>
-        <a href=# id=rButton><button id="r">RIGHT</button></a>
-        <a href=# id=quitButton><button id="q">QUIT</button></a>
-        </form>
-<!--  <script>-->
-<!--    document.getElementById("start").addEventListener("click", sendButton);-->
-<!--    function sendButton() {-->
-<!--      // Send to server-->
-<!--      document.getElementById("start").innerHTML = "MY DEAR FRIEND";-->
-<!--    }-->
+    <form>
+    <div class="start-button">
+      <a href=# id=startButton><button id="start" class="sButton">Start</button></a><br>
+      <a href=# id=selectButton><button id="sel" class="seButton">Select</button></a><br>
+      <a href=# id=quitButton><button id="q" class="quitButton">QUIT</button></a>
+    </div>
+
+      <!-- <div class = "btn-group">
+        <a href=# id=aButton><button id="a" class="aButton">A</button></a><br><br>
+        <a href=# id=bButton><button id="b" class ="bButton">B</button></a>
+        <a href=# id=xButton><button id="x" class="xButton">X</button></a><br><br>
+        <a href=# id=yButton><button id="y" class="yButton">Y</button></a>
+      </div>
+        
+      </div class="arrow">
+        <div style="text-align:center;width:280px;">
+        <a href=# id=uButton><button id="u" class="button" >UP</button><br><br>
+        <a href=# id=lButton><button id="l" class="button">LEFT</button>
+        <a href=# id=rButton><button id="r" class="button">RIGHT</button><br><br>
+        <a href=# id=dButton><button id="d" class="button">DOWN</button>
+        </div>
+      </div>
+     </form> -->
+    
+    
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script type=text/javascript>
-        $(function() {
-          $('a#startButton').bind('click', function() {
-            $.getJSON('/start_action',
-                function(data) {
-              //do nothing
-            });
-            return false;
-          });
-        });
-        $(function() {
-          $('a#aButton').bind('click', function() {
-            $.getJSON('/a_action',
-                function(data) {
-              //do nothing
-            });
-            return false;
-          });
-        });
-        $(function() {
-          $('a#bButton').bind('click', function() {
-            $.getJSON('/b_action',
-                function(data) {
-              //do nothing
-            });
-            return false;
-          });
-        });
-        $(function() {
-          $('a#xButton').bind('click', function() {
-            $.getJSON('/x_action',
-                function(data) {
-              //do nothing
-            });
-            return false;
-          });
-        });
-        $(function() {
-          $('a#yButton').bind('click', function() {
-            $.getJSON('/y_action',
-                function(data) {
-              //do nothing
-            });
-            return false;
-          });
-        });
-        $(function() {
-          $('a#selectButton').bind('click', function() {
-            $.getJSON('/select_action',
-                function(data) {
-              //do nothing
-            });
-            return false;
-          });
-        });
-        $(function() {
-          $('a#uButton').bind('click', function() {
-            $.getJSON('/u_action',
-                function(data) {
-              //do nothing
-            });
-            return false;
-          });
-        });
-        $(function() {
-          $('a#dButton').bind('click', function() {
-            $.getJSON('/d_action',
-                function(data) {
-              //do nothing
-            });
-            return false;
-          });
-        });
-        $(function() {
-          $('a#lButton').bind('click', function() {
-            $.getJSON('/l_action',
-                function(data) {
-              //do nothing
-            });
-            return false;
-          });
-        });
-        $(function() {
-          $('a#rButton').bind('click', function() {
-            $.getJSON('/r_action',
-                function(data) {
-              //do nothing
-            });
-            return false;
-          });
-        });
-        $(function() {
-          $('a#quitButton').bind('click', function() {
-            $.getJSON('/q_action',
-                function(data) {
-              //do nothing
-            });
-            return false;
-          });
-        });
+		var buttonA =true
+		var buttonB =true
+		var buttonX =true
+		var buttonY = true
+		var buttonUP =true
+		var buttonDOWN =true
+		var buttonLEFT =true
+		var buttonRIGHT =true
+        $(document).keypress(function(event){
+    	var keycode = event.which;
+    	if(keycode == '13'){
+    		 $.getJSON('/start_action',
+                 function(data) {
+        	    });
+             return false;
+    		}
+    	if(keycode == '9'){
+    		 $.getJSON('/select_action',
+                 function(data) {
+        	    });
+             return false;
+    		}
+    	if(keycode == '27'){
+    		 $.getJSON('/q_action',
+                 function(data) {
+        	    });
+             return false;
+    		}
+		});
+		$(document).keydown(function(event){
+    	var keycode = event.which;
+    	if(keycode == '87'){
+  			if(buttonUP){
+  				buttonUP = false
+                console.log(buttonUP)
+    		 $.getJSON('/u_action',
+                 function(data) {
+
+        	    });
+             return false;
+    		}}
+    	if(keycode == '65'){
+    		if(buttonLEFT){
+    		 buttonLEFT = false
+    		 $.getJSON('/l_action',
+                 function(data) {
+        	    });
+             return false;
+    		}}
+    	if(keycode == '68'){
+    		if(buttonRIGHT){
+    		 buttonRIGHT =false
+    		 $.getJSON('/r_action',
+                 function(data) {
+        	    });
+             return false;
+    		}}
+    	if(keycode == '88'){
+    		if(buttonDOWN){
+    		 buttonDOWN = false
+    		 $.getJSON('/d_action',
+                 function(data) {
+        	    });
+             return false;
+    		}}
+    	if(keycode == '85'){
+    		if(buttonY){
+    		 buttonY = false
+    		 $.getJSON('/y_action',
+                 function(data) {
+        	    });
+             return false;
+    		}}
+    	if(keycode == '72'){
+    		if(buttonX){
+    		 buttonX = false
+    		 $.getJSON('/x_action',
+                 function(data) {
+        	    });
+             return false;
+    		}}
+    	if(keycode == '75'){
+    		if(buttonB){
+    		 buttonB =false
+    		 $.getJSON('/b_action',
+                 function(data) {
+        	    });
+             return false;
+    		}}
+    	if(keycode == '74'){
+    		if(buttonA){
+    		 buttonA = false
+    		 $.getJSON('/a_action',
+                 function(data) {
+        	    });
+             return false;
+    		}}
+		});
+
+		$(document).keyup(function(event){
+    	var keycode = event.which;
+    	if(keycode == '87'){
+  			buttonUP = true
+  			$.getJSON('/action_uup',
+                 function(data) {
+        	    });
+             return false;
+    		}
+    	if(keycode == '65'){
+    		buttonLEFT = true
+    		$.getJSON('/action_lup',
+                 function(data) {
+        	    });
+             return false;
+    	}
+    	if(keycode == '68'){
+    		buttonRIGHT =true
+    		$.getJSON('/action_rup',
+                 function(data) {
+        	    });
+             return false;
+         }
+    	if(keycode == '88'){
+    		buttonDOWN = true
+    		$.getJSON('/action_dup',
+                 function(data) {
+        	    });
+             return false;}
+    	if(keycode == '85'){
+    		buttonY = true}
+    	if(keycode == '72'){
+    		buttonX = true}
+    	if(keycode == '75'){
+    		buttonB =true}
+    	if(keycode == '74'){
+    		buttonA = true}
+		});
+
+
+		// $(document).keyup(function(event){
+  //   	var keycode = event.which;
+  //   	if(keycode == '13'){
+  //   		console.log("Lifted")   
+  //   		}
+		// });
+
+        // $(function() {
+        //   $('a#startButton').bind('click', function() {
+        //     $.getJSON('/start_action',
+        //         function(data) {
+        //       //do nothing
+        //     });
+        //     return false;
+        //   });
+        // });
+        // $(function() {
+        //   $('a#aButton').bind('click', function() {
+        //     $.getJSON('/a_action',
+        //         function(data) {
+        //       //do nothing
+        //     });
+        //     return false;
+        //   });
+        // });
+        // $(function() {
+        //   $('a#bButton').bind('click', function() {
+        //     $.getJSON('/b_action',
+        //         function(data) {
+        //       //do nothing
+        //     });
+        //     return false;
+        //   });
+        // });
+        // $(function() {
+        //   $('a#xButton').bind('click', function() {
+        //     $.getJSON('/x_action',
+        //         function(data) {
+        //       //do nothing
+        //     });
+        //     return false;
+        //   });
+        // });
+        // $(function() {
+        //   $('a#yButton').bind('click', function() {
+        //     $.getJSON('/y_action',
+        //         function(data) {
+        //       //do nothing
+        //     });
+        //     return false;
+        //   });
+        // });
+        // $(function() {
+        //   $('a#selectButton').bind('click', function() {
+        //     $.getJSON('/select_action',
+        //         function(data) {
+        //       //do nothing
+        //     });
+        //     return false;
+        //   });
+        // });
+        // $(function() {
+        //   $('a#uButton').bind('click', function() {
+        //     $.getJSON('/u_action',
+        //         function(data) {
+        //       //do nothing
+        //     });
+        //     return false;
+        //   });
+        // });
+        // $(function() {
+        //   $('a#dButton').bind('click', function() {
+        //     $.getJSON('/d_action',
+        //         function(data) {
+        //       //do nothing
+        //     });
+        //     return false;
+        //   });
+        // });
+        // $(function() {
+        //   $('a#lButton').bind('click', function() {
+        //     $.getJSON('/l_action',
+        //         function(data) {
+        //       //do nothing
+        //     });
+        //     return false;
+        //   });
+        // });
+        // $(function() {
+        //   $('a#rButton').bind('click', function() {
+        //     $.getJSON('/r_action',
+        //         function(data) {
+        //       //do nothing
+        //     });
+        //     return false;
+        //   });
+        // });
+        // $(function() {
+        //   $('a#quitButton').bind('click', function() {
+        //     $.getJSON('/q_action',
+        //         function(data) {
+        //       //do nothing
+        //     });
+        //     return false;
+        //   });
+        // });
 </script>
 
   </body>
