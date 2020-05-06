@@ -5,6 +5,7 @@ import Listener
 import boto3
 from pprint import pprint
 import AWS_CREDENTIALS
+import sys
 
 Controller = Flask(__name__)
 
@@ -34,7 +35,6 @@ def publish_message(username, game, core):
     print('Successfully uploaded to Service queue')
 
 def listen_response(username):
-    sqs = boto3.client('sqs', region_name='us-east-1')
     redirect_ip = None
     while True:
         print('Waiting for streaming server to start for ' + username)
@@ -42,21 +42,25 @@ def listen_response(username):
         if checkResponseQueueSize() > 0:
             print('Receiving messages')
             key = sqs.receive_message(QueueUrl=response_queue_url)
-            for msg in key['Messages']:
-                pprint(msg)
-                if msg['Body'].split('/')[-1] == username:
-                    redirect_ip = msg['Body']
-                    sqs.delete_message(QueueUrl = response_queue_url, ReceiptHandle = msg['ReceiptHandle'])
-                    break
+            try:
+                if 'Messages' in key:
+                    for msg in key['Messages']:
+                        print(msg['Body'].split('/')[-1], username)
+                        if msg['Body'].split('/')[-1] == username:
 
-        if redirect_ip:
-            break
+                            redirect_ip = msg['Body']
+                            print(redirect_ip)
+                            sqs.delete_message(QueueUrl = response_queue_url, ReceiptHandle = msg['ReceiptHandle'])
+                            # Redirect to that user's server
+                            print('Redirecting for ' + username)
+                            return redirect_ip
+
+            except:
+                print(checkResponseQueueSize())
+                print(sys.exc_info())
 
         time.sleep(10)
 
-    # Redirect to that user's server
-    print('Redirecting for ' + username)
-    return redirect_ip
 
 @Controller.route('/')
 def index():
@@ -73,8 +77,10 @@ def login():
     game = request.args.get('game')
 
     publish_message(username, game, core)
-    redirect_ip = listen_response(username)
-    return redirect(redirect_ip)
+    ip = listen_response(username)
+    print(ip)
+    return redirect(ip)
+
 
 if __name__ == '__main__':
     Controller.run(host='0.0.0.0', port=5000, debug=True, threaded=True)

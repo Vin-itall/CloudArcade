@@ -35,7 +35,6 @@ def getTerminatedInstances():
     return returnable
 
 def listen():
-    sqs = boto3.client('sqs', region_name='us-east-1')
     Queue = 'https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo'
     while True:
         print('Checking service queue for new message...')
