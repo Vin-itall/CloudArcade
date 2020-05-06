@@ -22,7 +22,7 @@
             from {
               text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
             }
-            
+
             to {
               text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
             }
@@ -42,7 +42,7 @@
           -moz-border-radius: 7px;
           -o-border-radius: 7px;
           border-radius: 7px;
-          box-shadow: 0 .2em gray; 
+          box-shadow: 0 .2em gray;
           margin-right: 122px;
           size: 10px;
         }
@@ -58,7 +58,7 @@
           -moz-border-radius: 7px;
           -o-border-radius: 7px;
           border-radius: 7px;
-          box-shadow: 0 .2em gray; 
+          box-shadow: 0 .2em gray;
           margin-top: -65px;
           margin-left: 125px;
           size: 10px;
@@ -75,7 +75,7 @@
           -moz-border-radius: 7px;
           -o-border-radius: 7px;
           border-radius: 7px;
-          box-shadow: 0 .2em gray; 
+          box-shadow: 0 .2em gray;
           margin-top: -65px;
           margin-right: 15px;
           margin-left: 370px;
@@ -224,8 +224,8 @@
         .arrow{
           margin-top: 20px;
         }
-       
-    </style> 
+
+    </style>
 
     <h1 class="glow">Retro CloudArcade</h1>
     <img src="{{ url_for('video_feed') }}">
@@ -233,8 +233,8 @@
     <br>
     <form>
     <div class="start-button">
-      <a href=# id=startButton><button id="start" class="sButton">Start</button></a><br>
-      <a href=# id=selectButton><button id="sel" class="seButton">Select</button></a><br>
+      <!-- <a href=# id=startButton><button id="start" class="sButton">Start</button></a><br>
+      <a href=# id=selectButton><button id="sel" class="seButton">Select</button></a><br> -->
       <a href=# id=quitButton><button id="q" class="quitButton">QUIT</button></a>
     </div>
 
@@ -244,7 +244,7 @@
         <a href=# id=xButton><button id="x" class="xButton">X</button></a><br><br>
         <a href=# id=yButton><button id="y" class="yButton">Y</button></a>
       </div>
-        
+
       </div class="arrow">
         <div style="text-align:center;width:280px;">
         <a href=# id=uButton><button id="u" class="button" >UP</button><br><br>
@@ -254,8 +254,8 @@
         </div>
       </div>
      </form> -->
-    
-    
+
+
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script type=text/javascript>
 		var buttonA =true
@@ -280,7 +280,7 @@
         	    });
              return false;
     		}
-    	if(keycode == '27'){
+    	if(keycode == '81'){
     		 $.getJSON('/q_action',
                  function(data) {
         	    });
@@ -400,7 +400,7 @@
 		// $(document).keyup(function(event){
   //   	var keycode = event.which;
   //   	if(keycode == '13'){
-  //   		console.log("Lifted")   
+  //   		console.log("Lifted")
   //   		}
 		// });
 
@@ -494,15 +494,15 @@
         //     return false;
         //   });
         // });
-        // $(function() {
-        //   $('a#quitButton').bind('click', function() {
-        //     $.getJSON('/q_action',
-        //         function(data) {
-        //       //do nothing
-        //     });
-        //     return false;
-        //   });
-        // });
+        $(function() {
+          $('a#quitButton').bind('click', function() {
+            $.getJSON('/q_action',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
 </script>
 
   </body>
