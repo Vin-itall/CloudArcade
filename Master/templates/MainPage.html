@@ -46,7 +46,7 @@
 
     </style>
 
-    <h1 class="glow">Welcome to Cloud Arcade</h1>
+    <h1 class="glow" id="h1">Welcome to Cloud Arcade</h1>
     <br>
     <br>
      <div id="loading"></div>
@@ -105,7 +105,7 @@
 
         // <![CDATA[
         function loading(){
-            $("#loading").show();
+            document.getElementById("h1").innerHTML = "Loading...";
             $("#content").hide();
         }
         // ]]>
