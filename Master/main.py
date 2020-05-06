@@ -7,7 +7,7 @@ from pprint import pprint
 import AWS_CREDENTIALS
 import sys
 
-Controller = Flask(__name__)
+app = Flask(__name__)
 
 queue_url = 'https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo'
 response_queue_url = 'https://sqs.us-east-1.amazonaws.com/067610562392/responseQueue.fifo'
@@ -62,7 +62,7 @@ def listen_response(username):
         time.sleep(10)
 
 
-@Controller.route('/')
+@app.route('/')
 def index():
     global thread
     if not thread:
@@ -70,7 +70,7 @@ def index():
         thread.start()
     return render_template('MainPage.html')
 
-@Controller.route('/login_action')
+@app.route('/login_action')
 def login():
     username = request.args.get('username')
     core = request.args.get('core')
@@ -83,4 +83,4 @@ def login():
 
 
 if __name__ == '__main__':
-    Controller.run(host='0.0.0.0', port=5000, debug=True, threaded=True)
+    app.run(host='0.0.0.0', port=5000, debug=True, threaded=True)
