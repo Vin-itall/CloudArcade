@@ -1,5 +1,5 @@
 # CloudArcade
-As the next step in the gaming world is Cloud Gaming. 
+CLoud Arcade is both a step in the future and in the past in the gaming world.
 CloudArcade is an effort in the same direction.
 CloudArcade aims to bring back the Retro 8-bit games to life by streaming the game online and scaling in and out the hosts as needed and required. 
 
