@@ -9,13 +9,13 @@ import sys
 
 app = Flask(__name__)
 
-queue_url = 'https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo'
-response_queue_url = 'https://sqs.us-east-1.amazonaws.com/067610562392/responseQueue.fifo'
+queue_url = 'https://sqs.us-east-1.amazonaws.com/**********************'
+response_queue_url = 'https://sqs.us-east-1.amazonaws.com/************************'
 sqs = boto3.client(
     'sqs',
     'us-east-1',
-    aws_access_key_id = 'AKIAQ7PPHJ5MGBKCJA7G',
-    aws_secret_access_key= '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'
+    aws_access_key_id = '*******************',
+    aws_secret_access_key= '*******************************'
     # aws_session_token=SESSION_TOKEN,
 )
 
