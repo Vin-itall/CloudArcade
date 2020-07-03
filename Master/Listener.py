@@ -9,11 +9,11 @@ import AWS_CREDENTIALS
 sqs = boto3.client(
     'sqs',
     'us-east-1',
-    aws_access_key_id= 'AKIAQ7PPHJ5MGBKCJA7G',
-    aws_secret_access_key= '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'
+    aws_access_key_id= 'A*************',
+    aws_secret_access_key= '*****************'
     # aws_session_token=SESSION_TOKEN,
 )
-Queue = 'https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo'
+Queue = 'https://sqs.us-east-1.amazonaws.com/***********************'
 compute = googleapiclient.discovery.build('compute', 'v1')
 thread = None
 
@@ -35,7 +35,7 @@ def getTerminatedInstances():
     return returnable
 
 def listen():
-    Queue = 'https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo'
+    Queue = 'https://sqs.us-east-1.amazonaws.com/******************'
     while True:
         print('Checking service queue for new message...')
         qSize = int(checkQueueSize())
