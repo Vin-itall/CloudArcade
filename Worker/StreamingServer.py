@@ -29,7 +29,7 @@ os.environ["SDL_VIDEODRIVER"] = "dummy"
 compute = googleapiclient.discovery.build('compute', 'v1')
 
 
-queue_url = 'https://sqs.us-east-1.amazonaws.com/067610562392/responseQueue.fifo'
+queue_url = 'https://sqs.us-east-1.amazonaws.com/*************************'
 
 request = compute.instances().get(project='cloudarcademaster-274423', zone='us-west3-a', instance='worker-1')
 response = request.execute()
