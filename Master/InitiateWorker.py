@@ -13,13 +13,13 @@ def initiate(instance):
     sqs = boto3.client(
         'sqs',
         'us-east-1',
-        aws_access_key_id= 'AKIAQ7PPHJ5MGBKCJA7G',
-        aws_secret_access_key= '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'
+        aws_access_key_id= '*****************',
+        aws_secret_access_key= '*********************'
         # aws_session_token=SESSION_TOKEN,
     )
-    key = sqs.receive_message(QueueUrl='https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo')
+    key = sqs.receive_message(QueueUrl='https://sqs.us-east-1.amazonaws.com/*****************')
     Receipt = key['Messages'][0]['ReceiptHandle']
-    sqs.change_message_visibility(QueueUrl='https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo',
+    sqs.change_message_visibility(QueueUrl='https://sqs.us-east-1.amazonaws.com/*********************',
                        ReceiptHandle=Receipt, VisibilityTimeout = 100)
     message = key['Messages'][0]['Body']
     message = json.loads(message)
