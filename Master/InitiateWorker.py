@@ -58,7 +58,7 @@ def initiate(instance):
         print('Metadata Set')
 
         if response:
-            sqs.delete_message(QueueUrl = 'https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo', ReceiptHandle = Receipt)
+            sqs.delete_message(QueueUrl = 'https://sqs.us-east-1.amazonaws.com*********************', ReceiptHandle = Receipt)
     except:
         print('Nhi ho paaya')
 
