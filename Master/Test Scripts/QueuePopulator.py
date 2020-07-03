@@ -1,6 +1,6 @@
 import boto3
 
-queue_url = 'https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo'
+queue_url = 'https://sqs.us-east-1.amazonaws.com/***************'
 sqs = boto3.client('sqs', region_name='us-east-1')
 
 messages = ['{"game": "barbie", "core": "snes", "username": "atmc"}',
