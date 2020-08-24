@@ -1,4 +1,4 @@
-# CloudArcade
+# CloudArcade (Proof-Of-Concept)
 
 + Architecture
 
