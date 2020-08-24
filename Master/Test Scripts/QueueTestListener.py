@@ -2,7 +2,7 @@ import boto3
 
 sqs = boto3.client('sqs', region_name='us-east-1')
 
-Queue = 'https://sqs.us-east-1.amazonaws.com/067610562392/serviceFifo.fifo'
+Queue = 'https://sqs.us-east-1.amazonaws.com/***********************'
 def checkQueueSize():
     QSize = sqs.get_queue_attributes(
             QueueUrl=Queue,
