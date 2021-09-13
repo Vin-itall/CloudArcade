@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-arcade
+  labels:
+    app: cloud-arcade
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloud-arcade
+  template:
+    metadata:
+      labels:
+        app: cloud-arcade
+    spec:
+      containers:
+        - name: cloudarcade-container
+          image: vin0itall/cloudarcade:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
