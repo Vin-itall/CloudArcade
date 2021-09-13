@@ -6,41 +6,30 @@ from os import path
 from py_retro import core, pygame_input
 import sys
 import os
-import googleapiclient.discovery
 from pprint import pprint
-import boto3
-import AWS_CREDENTIALS
 
-sqs = boto3.client(
-    'sqs',
-    'us-east-1',
-    aws_access_key_id= AWS_CREDENTIALS.aws_access_key_id,
-    aws_secret_access_key= AWS_CREDENTIALS.aws_secret_access_key
-    # aws_session_token=SESSION_TOKEN,
-)
-
-def publish_message(Username, ip):
-    global queue_url
-    MessageAttributes = ip
-    sqs.send_message(QueueUrl=queue_url, MessageGroupId=Username, MessageBody=MessageAttributes)
-    print('Successfully uploaded')
+# def publish_message(Username, ip):
+#     global queue_url
+#     MessageAttributes = ip
+#     sqs.send_message(QueueUrl=queue_url, MessageGroupId=Username, MessageBody=MessageAttributes)
+#     print('Successfully uploaded')
 
 os.environ["SDL_VIDEODRIVER"] = "dummy"
-compute = googleapiclient.discovery.build('compute', 'v1')
+# compute = googleapiclient.discovery.build('compute', 'v1')
 
 
-queue_url = 'https://sqs.us-east-1.amazonaws.com/*************************'
+# queue_url = 'https://sqs.us-east-1.amazonaws.com/*************************'
 
-request = compute.instances().get(project='cloudarcademaster-274423', zone='us-west3-a', instance='worker-1')
-response = request.execute()
-meta = response['metadata']['items']
-ip = response['networkInterfaces'][0]['accessConfigs'][0]['natIP']
+# request = compute.instances().get(project='cloudarcademaster-274423', zone='us-west3-a', instance='worker-1')
+# response = request.execute()
+# meta = response['metadata']['items']
+# ip = response['networkInterfaces'][0]['accessConfigs'][0]['natIP']
 
-Username = meta[0]['value']
-Game = meta[2]['value']
-Core = meta[1]['value']
-ip = 'http://' + ip + ':80/' + Username
-publish_message(Username, ip)
+# Username = meta[0]['value']
+# Game = meta[2]['value']
+# Core = meta[1]['value']
+# ip = 'http://' + ip + ':80/' + Username
+# publish_message(Username, ip)
 
 
 app = Flask(__name__)
@@ -58,8 +47,11 @@ buttonRIGHT =0
 buttonQuit = 0
 
 
-libpath = '/home/atmc/CloudArcade/Worker/Cores/' + str(Core) +'.so'
-rompath = '/home/atmc/CloudArcade/Worker/test roms/'+str(Core)+'/'+str(Game)
+
+Username = 'ATMC'
+cwd = os.getcwd()
+libpath = cwd + '/Cores/snes.so'
+rompath = cwd + '/Roms/snes/A.smc'
 
 @app.route('/'+str(Username))
 def index():
@@ -233,6 +225,7 @@ def gen():
     clock = pygame.time.Clock()
     MAX_MAPPINGS = 20
     MAX_PLAYERS = 8
+    print(fps)
     while running:
         customcache = [[0] * MAX_MAPPINGS for i in range(MAX_PLAYERS)]
         # pygame.event.pump()
@@ -249,4 +242,4 @@ def gen():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
+    app.run(host='0.0.0.0', port=8080, debug=True, threaded=True)

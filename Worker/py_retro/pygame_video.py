@@ -8,6 +8,7 @@ import ctypes
 from io import StringIO
 from io import BytesIO
 from PIL import Image
+import os
 count = 0
 Frame = None
 def randomString(stringLength=10):
@@ -55,7 +56,8 @@ def set_video_refresh_surface(core, targetsurf, scale=False):
         def wrapper(surf):
             global count,Frame
             count+=1
-            fname = '/home/atmc/CloudArcade/Worker/bmps/temp.bmp'
+            cwd = os.getcwd()
+            fname = cwd +'/bmps/temp.bmp'
             pygame.image.save(surf, fname)
             Frame =open(fname, 'rb').read()
             targetsurf.blit(surf, (0, 0))
@@ -73,4 +75,3 @@ def getFrame():
 def pygame_display_set_mode(core, use_max=True):
     key = 'max_size' if use_max else 'base_size'
     return pygame.display.set_mode(core.get_av_info()[key])
-
